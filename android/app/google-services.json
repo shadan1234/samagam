@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "480910493070",
+    "project_id": "samagam-hackathon",
+    "storage_bucket": "samagam-hackathon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:480910493070:android:41de27148245214904d0df",
+        "android_client_info": {
+          "package_name": "com.example.samagam_hack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "480910493070-dkqgqu0eshgd7thl613villco6f1lvsr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXfYxo46NyfcMhGZjjOQ5JuNF8qKyvIzk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "480910493070-dkqgqu0eshgd7thl613villco6f1lvsr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
