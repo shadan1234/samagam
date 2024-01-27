@@ -7,15 +7,16 @@ class FirebaseServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<void> sendMessage(String text, String? imageUrl,bool completed) async {
+  Future<void> sendMessage(String category, String text, String? imageUrl, bool completed) async {
     String? userId = _auth.currentUser?.uid;
     if (userId != null) {
       await _firestore.collection('messages').add({
         'userId': userId,
+        'category': category,
         'text': text,
         'imageUrl': imageUrl,
+        'completed': completed,
         'timestamp': FieldValue.serverTimestamp(),
-        'compeleted':completed
       });
     }
   }

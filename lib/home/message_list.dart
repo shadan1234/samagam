@@ -5,8 +5,8 @@ import '../services/firebase-services.dart';
 class MessageList extends StatelessWidget {
   final String userId;
   final FirebaseServices firebaseServices = FirebaseServices();
-
-  MessageList({required this.userId});
+ final String category;
+  MessageList({required this.userId, required this.category});
   void _showFullImage(BuildContext context, String imageUrl) {
     Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => Scaffold(
@@ -23,6 +23,7 @@ class MessageList extends StatelessWidget {
       stream: FirebaseFirestore.instance
           .collection('messages')
           .where('userId', isEqualTo: userId)
+          .where('category', isEqualTo: category)
           .orderBy('timestamp', descending: true)
           .snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {

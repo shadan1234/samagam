@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:samagam_hack/services/user-type-db.dart';
 
 import '../auth.dart';
 import '../position_for_stack_in_sign_in_page.dart';
@@ -21,8 +23,11 @@ class _SignIn_PageState extends State<SignIn_Page> {
   String? email;
   String? error_for_email;
   String? error_for_password;
-  final _formKey = GlobalKey<FormState>();
+  final AuthService _auth = AuthService();
 
+  late Timer _timer;
+
+  final _formKey = GlobalKey<FormState>();
 
   void updateEmailFieldValue(String newValue) {
     setState(() {
@@ -36,8 +41,7 @@ class _SignIn_PageState extends State<SignIn_Page> {
     });
   }
 
-  final AuthService _auth = AuthService();
-  late Timer _timer;
+
 
   @override
   void initState() {
@@ -56,9 +60,9 @@ class _SignIn_PageState extends State<SignIn_Page> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    super.dispose();
     _timer.cancel();
+    super.dispose();
+
   }
 
   @override
@@ -70,10 +74,10 @@ class _SignIn_PageState extends State<SignIn_Page> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 50,
+                  height: 30,
                 ),
                 Container(
-                  height: 350,
+                  height: 250,
                   child: Stack(children: [
                     Positioned_for_Auth_Pages(
                       opacity: (activeIndex == 0) ? 1 : 0,
@@ -135,6 +139,11 @@ class _SignIn_PageState extends State<SignIn_Page> {
 
                         },
                       ),
+                      SizedBox(
+                        height: 20,
+                      ),
+
+
                       // Text('$error_for_password'),
                     ],
                   ),
