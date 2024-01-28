@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+
 import '../services/firebase-services.dart';
 
-class MessageList extends StatelessWidget {
-  final String userId;
+class MessageForWorkers extends StatelessWidget {
+   MessageForWorkers({Key? key,required this.category}) : super(key: key);
+  final String category;
   final FirebaseServices firebaseServices = FirebaseServices();
- final String category;
-  MessageList({required this.userId, required this.category});
   void _showFullImage(BuildContext context, String imageUrl) {
     Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => Scaffold(
@@ -22,7 +22,7 @@ class MessageList extends StatelessWidget {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection('messages')
-          .where('userId', isEqualTo: userId)
+
           .where('category', isEqualTo: category)
           .orderBy('timestamp', descending: true)
           .snapshots(),
@@ -33,8 +33,7 @@ class MessageList extends StatelessWidget {
             itemBuilder: (context, index) {
               var doc = snapshot.data!.docs[index];
               var message = doc.data() as Map<String, dynamic>;
-              bool isCompletedU = message['completedU'] ?? false;
-
+              bool isCompletedW = message['completedW'] ?? false;
 
               return Card( // Use Card for better UI
                 margin: EdgeInsets.all(8.0),
@@ -70,10 +69,10 @@ class MessageList extends StatelessWidget {
                       Row(
                         children: [
                           Checkbox(
-                            value: isCompletedU,
-                            onChanged: isCompletedU ? null : (bool? newValue) {
+                            value: isCompletedW,
+                            onChanged: isCompletedW ? null : (bool? newValue) {
                               if (newValue != null) {
-                                firebaseServices.updateTaskCompletionForUser(doc.id, true); // Only allow checking
+                                firebaseServices.updateTaskCompletionForWorker(doc.id, true); // Only allow checking
                               }
                             },
                           ),

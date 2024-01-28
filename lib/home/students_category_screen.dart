@@ -8,15 +8,14 @@ import 'package:image_picker/image_picker.dart';
 import '../services/firebase-services.dart';
 import 'message_list.dart';
 
-class PlumberScreen extends StatefulWidget {
+class StudentsCategoryScreen extends StatefulWidget {
   @override
   final String? category;
-  PlumberScreen({this.category});
-  _PlumberScreenState createState() => _PlumberScreenState();
+  StudentsCategoryScreen({this.category});
+  _StudentsCategoryScreenState createState() => _StudentsCategoryScreenState();
 }
 
-class _PlumberScreenState extends State<PlumberScreen> {
-
+class _StudentsCategoryScreenState extends State<StudentsCategoryScreen> {
   final TextEditingController _messageController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   File? _image;
@@ -38,7 +37,8 @@ class _PlumberScreenState extends State<PlumberScreen> {
     }
 
     if (messageText.isNotEmpty && imageUrl != null) {
-      await _firebaseServices.sendMessage('Plumber', messageText, imageUrl, false);
+      await _firebaseServices.sendMessage(
+          widget.category!, messageText, imageUrl, false,false);
 
       setState(() {
         _image = null;
@@ -53,7 +53,9 @@ class _PlumberScreenState extends State<PlumberScreen> {
     return Scaffold(
       body: Column(
         children: [
-          Expanded(child: MessageList(userId: userId, category: 'Plumber'),),
+          Expanded(
+            child: MessageList(userId: userId, category: widget.category!),
+          ),
           if (_image != null)
             Container(
               height: 50, // Adjust height as needed
@@ -86,7 +88,8 @@ class _PlumberScreenState extends State<PlumberScreen> {
                         borderRadius: BorderRadius.circular(25.0),
                         borderSide: BorderSide.none,
                       ),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       suffixIcon: IconButton(
                         icon: Icon(Icons.send),
                         onPressed: _sendMessage, // Updated this line
