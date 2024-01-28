@@ -6,6 +6,7 @@ import 'package:iconsax/iconsax.dart';
 
 import '../auth.dart';
 import '../position_for_stack_in_sign_in_page.dart';
+import '../services/user-type-db.dart';
 import '../textfield_for_auth_pages.dart';
 
 class Register_Page extends StatefulWidget {
@@ -21,9 +22,12 @@ class _Register_PageState extends State<Register_Page> {
   String? password;
   String? email;
   String? error="";
-
+  final DatabaseService _databaseService=DatabaseService();
   final _formKey = GlobalKey<FormState>();
-
+  List<String>types=[
+    'plumber','electrician','cleaner','students'
+  ];
+  String? dropDownValue='plumber';
 
   void updateEmailFieldValue(String newValue) {
     setState(() {
@@ -61,7 +65,19 @@ class _Register_PageState extends State<Register_Page> {
     super.dispose();
     _timer.cancel();
   }
-
+  void _signUpAndStoreUserData() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      // Sign up the user
+      User? user = await _auth.registerUserWithEmailAndPassword(email!, password!);
+      if (user != null) {
+        // User signed up successfully, now add userType to Firestore
+        await _databaseService.updateUserData(user.uid,email!, dropDownValue!);
+        // Redirect the user or show a success message
+      } else {
+        // Handle errors, e.g. show an error message
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,10 +87,10 @@ class _Register_PageState extends State<Register_Page> {
         child: Column(
           children: [
             SizedBox(
-              height: 50,
+              height: 30,
             ),
             Container(
-              height: 350,
+              height: 250,
               child: Stack(children: [
                 Positioned_for_Auth_Pages(
                   opacity: (activeIndex == 0) ? 1 : 0,
@@ -136,7 +152,44 @@ class _Register_PageState extends State<Register_Page> {
 
                     },
                   ),
-
+                  SizedBox(
+                    height: 20,
+                  ),
+                  DropdownButtonFormField<String>(
+                    isExpanded: true,
+                    decoration: InputDecoration(
+                      labelText: "Select Type",
+                      labelStyle: TextStyle(color: Colors.grey),
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(color: Colors.black, width: 1),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(color: Colors.black, width: 1),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 16),
+                      prefixIcon: Icon(Icons.work_outline, color: Colors.grey),
+                    ),
+                    value: dropDownValue,
+                    icon: const Icon(Icons.keyboard_arrow_down, color: Colors.black),
+                    iconSize: 24,
+                    style: TextStyle(color: Colors.black),
+                    items: types.map((String item) {
+                      return DropdownMenuItem<String>(
+                        value: item,
+                        child: Text(item[0].toUpperCase() + item.substring(1)), // Capitalize the first letter
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        dropDownValue = newValue!;
+                      });
+                    },
+                    validator: (value) => value == null ? 'Please select a type' : null,
+                  ),
                 ],
               ),
             ),
@@ -160,20 +213,8 @@ class _Register_PageState extends State<Register_Page> {
               height: 30,
             ),
             MaterialButton(
-              onPressed: () async{
+              onPressed: _signUpAndStoreUserData,
 
-                if(_formKey.currentState?.validate()??false) {
-                 // _auth.sendVerificationLink(email!);
-                dynamic result= await _auth.registerUserWithEmailAndPassword(email!, password!);
-                if(result==null)
-                  {
-                    setState(() {
-                      error='Invalid Credentials';
-                    });
-                  }
-                }
-
-              },
               height: 45,
               color: Colors.black,
               child: Text(

@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:samagam_hack/auth.dart';
 import 'package:samagam_hack/home/plumber_screen.dart';
+
+import 'category_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -14,10 +17,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // List of widgets to display as body
   final List<Widget> _children = [
-    PlumberScreen(),
-    PlumberScreen(),
-    PlumberScreen(),
-
+    PlumberScreen(category: 'Plumber'),
+    ElectricianScreen(category: 'Plumber'),
+    PlumberScreen(category: 'Plumber'),
+    // Screen(category: 'Electrician'),
+    // CategoryScreen(category: 'Cleaner'),
   ];
 
   void onTabTapped(int index) {
@@ -41,7 +45,11 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-
+         actions: [
+           TextButton(onPressed: (){
+             AuthService().signOutTheUser();
+           }, child: Text('Logout',style: TextStyle(color: Colors.black),))
+         ],
         title: Text(
           'Nitr Clean',
           style: TextStyle(
@@ -89,6 +97,8 @@ class _HomeScreenState extends State<HomeScreen> {
 // Dummy screen widgets for Plumber, Electrician, and Cleaner
 
 class ElectricianScreen extends StatelessWidget {
+  final String? category;
+  ElectricianScreen({required this.category});
   @override
   Widget build(BuildContext context) {
     return Center(child: Text('Electrician Screen'));

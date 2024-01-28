@@ -10,10 +10,13 @@ import 'message_list.dart';
 
 class PlumberScreen extends StatefulWidget {
   @override
+  final String? category;
+  PlumberScreen({this.category});
   _PlumberScreenState createState() => _PlumberScreenState();
 }
 
 class _PlumberScreenState extends State<PlumberScreen> {
+
   final TextEditingController _messageController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   File? _image;
@@ -35,7 +38,8 @@ class _PlumberScreenState extends State<PlumberScreen> {
     }
 
     if (messageText.isNotEmpty && imageUrl != null) {
-      await _firebaseServices.sendMessage(messageText, imageUrl,false);
+      await _firebaseServices.sendMessage('Plumber', messageText, imageUrl, false);
+
       setState(() {
         _image = null;
         _messageController.clear();
@@ -49,7 +53,7 @@ class _PlumberScreenState extends State<PlumberScreen> {
     return Scaffold(
       body: Column(
         children: [
-          Expanded(child: MessageList(userId: userId)),
+          Expanded(child: MessageList(userId: userId, category: 'Plumber'),),
           if (_image != null)
             Container(
               height: 50, // Adjust height as needed
