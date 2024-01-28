@@ -7,7 +7,7 @@ class FirebaseServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<void> sendMessage(String category, String text, String? imageUrl, bool completed) async {
+  Future<void> sendMessage(String category, String text, String? imageUrl, bool completedU,bool completedW) async {
     String? userId = _auth.currentUser?.uid;
     if (userId != null) {
       await _firestore.collection('messages').add({
@@ -15,7 +15,8 @@ class FirebaseServices {
         'category': category,
         'text': text,
         'imageUrl': imageUrl,
-        'completed': completed,
+        'completedU': completedU,
+        'completedW': completedW,
         'timestamp': FieldValue.serverTimestamp(),
       });
     }
@@ -29,7 +30,10 @@ class FirebaseServices {
     TaskSnapshot snapshot = await uploadTask;
     return await snapshot.ref.getDownloadURL();
   }
-  Future<void> updateTaskCompletion(String messageId, bool completed) async {
-    await FirebaseFirestore.instance.collection('messages').doc(messageId).update({'completed': completed});
+  Future<void> updateTaskCompletionForWorker(String messageId, bool completed) async {
+    await FirebaseFirestore.instance.collection('messages').doc(messageId).update({'completedW': completed});
+  }
+  Future<void> updateTaskCompletionForUser(String messageId, bool completed) async {
+    await FirebaseFirestore.instance.collection('messages').doc(messageId).update({'completedU': completed});
   }
 }
