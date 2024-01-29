@@ -1,18 +1,15 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:samagam_hack/home/electrician_screen.dart';
+import 'package:samagam_hack/home/msg_cleaners.dart';
+
 import 'package:samagam_hack/services/user-type-db.dart';
 
-
-
 import 'authenticate/authenticate.dart';
-import 'home/cleaner.dart';
+
 import 'home/homescreen.dart';
 import 'home/students_category_screen.dart';
-import 'home/plumber_screens.dart';
-
+import 'home/worker.dart';
 
 class Wrapper extends StatelessWidget {
   const Wrapper({Key? key}) : super(key: key);
@@ -35,15 +32,21 @@ class Wrapper extends StatelessWidget {
             // Redirect based on userType
             switch (userType) {
               case 'plumber':
-                return Worker( category: 'Plumber',);
+                return Worker(
+                  category: 'Plumber',
+                );
               case 'electrician':
-                return Worker( category: 'Electrician',);
-            // Add more cases for other user types
+                return Worker(
+                  category: 'Electrician',
+                );
+              // Add more cases for other user types
               case 'cleaner':
-                return Worker( category: 'Cleaner',);
+                return MessageForCleaners(
+                  category: 'Cleaner',
+                );
               case 'students':
                 return HomeScreen();
-             // Create a screen for unknown user types
+              // Create a screen for unknown user types
               default:
                 return CircularProgressIndicator();
             }
@@ -56,4 +59,3 @@ class Wrapper extends StatelessWidget {
     }
   }
 }
-

@@ -42,6 +42,8 @@ dependencies:
   iconsax: ^0.0.8
   image_picker: ^1.0.7
   firebase_storage: ^11.6.0
+  google_maps_flutter: ^2.5.3
+  rxdart: ^0.27.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
