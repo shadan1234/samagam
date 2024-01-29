@@ -11,7 +11,9 @@ import 'message_list.dart';
 class StudentsCategoryScreen extends StatefulWidget {
   @override
   final String? category;
+
   StudentsCategoryScreen({this.category});
+
   _StudentsCategoryScreenState createState() => _StudentsCategoryScreenState();
 }
 
@@ -38,7 +40,7 @@ class _StudentsCategoryScreenState extends State<StudentsCategoryScreen> {
 
     if (messageText.isNotEmpty && imageUrl != null) {
       await _firebaseServices.sendMessage(
-          widget.category!, messageText, imageUrl, false,false);
+          widget.category!, messageText, imageUrl, false, false);
 
       setState(() {
         _image = null;

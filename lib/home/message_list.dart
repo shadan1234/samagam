@@ -5,8 +5,10 @@ import '../services/firebase-services.dart';
 class MessageList extends StatelessWidget {
   final String userId;
   final FirebaseServices firebaseServices = FirebaseServices();
- final String category;
+  final String category;
+
   MessageList({required this.userId, required this.category});
+
   void _showFullImage(BuildContext context, String imageUrl) {
     Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => Scaffold(
@@ -17,6 +19,7 @@ class MessageList extends StatelessWidget {
       ),
     ));
   }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -35,8 +38,8 @@ class MessageList extends StatelessWidget {
               var message = doc.data() as Map<String, dynamic>;
               bool isCompletedU = message['completedU'] ?? false;
 
-
-              return Card( // Use Card for better UI
+              return Card(
+                // Use Card for better UI
                 margin: EdgeInsets.all(8.0),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -45,7 +48,8 @@ class MessageList extends StatelessWidget {
                     children: [
                       if (message['imageUrl'] != null)
                         GestureDetector(
-                          onTap: ()=>_showFullImage(context, message['imageUrl']),
+                          onTap: () =>
+                              _showFullImage(context, message['imageUrl']),
                           child: Container(
                             height: 150, // Standardize image height
                             width: double.infinity,
@@ -71,16 +75,21 @@ class MessageList extends StatelessWidget {
                         children: [
                           Checkbox(
                             value: isCompletedU,
-                            onChanged: isCompletedU ? null : (bool? newValue) {
-                              if (newValue != null) {
-                                firebaseServices.updateTaskCompletionForUser(doc.id, true); // Only allow checking
-                              }
-                            },
+                            onChanged: isCompletedU
+                                ? null
+                                : (bool? newValue) {
+                                    if (newValue != null) {
+                                      firebaseServices
+                                          .updateTaskCompletionForUser(doc.id,
+                                              true); // Only allow checking
+                                    }
+                                  },
                           ),
                           Expanded(
                             child: Text(
                               'Work finished',
-                              style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                              style: TextStyle(
+                                  fontSize: 14, color: Colors.grey[600]),
                             ),
                           ),
                         ],

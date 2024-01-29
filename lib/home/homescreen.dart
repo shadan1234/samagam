@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:samagam_hack/auth.dart';
 import 'package:samagam_hack/home/students_category_screen.dart';
 
-import 'category_screen.dart';
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -38,26 +36,36 @@ class _HomeScreenState extends State<HomeScreen> {
         leading: Padding(
           padding: const EdgeInsets.all(8.0), // Add padding around the icon
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(8), // Adjust the border radius for curvature
+            borderRadius: BorderRadius.circular(8),
+            // Adjust the border radius for curvature
             child: Image.asset(
               'assets/icons/app.png', // Replace with your asset path
               fit: BoxFit.cover, // Ensures the image covers the ClipRRect area
             ),
           ),
         ),
-         actions: [
-           TextButton(onPressed: (){
-             AuthService().signOutTheUser();
-           }, child: Text('Logout',style: TextStyle(color: Colors.black),))
-         ],
+        actions: [
+          TextButton(
+              onPressed: () {
+                AuthService().signOutTheUser();
+              },
+              child: Text(
+                'Logout',
+                style: TextStyle(color: Colors.black),
+              ))
+        ],
         title: Text(
           'Nitr Clean',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 22.0, // Adjust font size
-            fontWeight: FontWeight.bold, // Make the text bold
-            fontStyle: FontStyle.italic, // Italicize the text
-            shadows: [ // Add text shadow for depth
+            fontSize: 22.0,
+            // Adjust font size
+            fontWeight: FontWeight.bold,
+            // Make the text bold
+            fontStyle: FontStyle.italic,
+            // Italicize the text
+            shadows: [
+              // Add text shadow for depth
               Shadow(
                 blurRadius: 2.0,
                 color: Colors.black.withOpacity(0.3),
@@ -68,9 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         centerTitle: true,
         elevation: 4.0, // Add elevation for depth (optional)
-
       ),
-
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,
@@ -93,4 +99,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-

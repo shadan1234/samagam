@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import '../services/firebase-services.dart';
 
 class MessageForWorkers extends StatelessWidget {
-   MessageForWorkers({Key? key,required this.category}) : super(key: key);
+  MessageForWorkers({Key? key, required this.category}) : super(key: key);
   final String category;
   final FirebaseServices firebaseServices = FirebaseServices();
+
   void _showFullImage(BuildContext context, String imageUrl) {
     Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => Scaffold(
@@ -17,12 +18,12 @@ class MessageForWorkers extends StatelessWidget {
       ),
     ));
   }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection('messages')
-
           .where('category', isEqualTo: category)
           .orderBy('timestamp', descending: true)
           .snapshots(),
@@ -35,7 +36,8 @@ class MessageForWorkers extends StatelessWidget {
               var message = doc.data() as Map<String, dynamic>;
               bool isCompletedW = message['completedW'] ?? false;
 
-              return Card( // Use Card for better UI
+              return Card(
+                // Use Card for better UI
                 margin: EdgeInsets.all(8.0),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -44,7 +46,8 @@ class MessageForWorkers extends StatelessWidget {
                     children: [
                       if (message['imageUrl'] != null)
                         GestureDetector(
-                          onTap: ()=>_showFullImage(context, message['imageUrl']),
+                          onTap: () =>
+                              _showFullImage(context, message['imageUrl']),
                           child: Container(
                             height: 150, // Standardize image height
                             width: double.infinity,
@@ -70,16 +73,21 @@ class MessageForWorkers extends StatelessWidget {
                         children: [
                           Checkbox(
                             value: isCompletedW,
-                            onChanged: isCompletedW ? null : (bool? newValue) {
-                              if (newValue != null) {
-                                firebaseServices.updateTaskCompletionForWorker(doc.id, true); // Only allow checking
-                              }
-                            },
+                            onChanged: isCompletedW
+                                ? null
+                                : (bool? newValue) {
+                                    if (newValue != null) {
+                                      firebaseServices
+                                          .updateTaskCompletionForWorker(doc.id,
+                                              true); // Only allow checking
+                                    }
+                                  },
                           ),
                           Expanded(
                             child: Text(
                               'Work finished',
-                              style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                              style: TextStyle(
+                                  fontSize: 14, color: Colors.grey[600]),
                             ),
                           ),
                         ],
