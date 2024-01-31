@@ -39,7 +39,7 @@ class MessageForCleaners extends StatelessWidget {
               ))
         ],
         title: Text(
-          'Nitr Clean',
+          'Smart camp Connect',
           style: TextStyle(
             color: Colors.white,
             fontSize: 22.0,
@@ -109,8 +109,8 @@ class MessageForCleaners extends StatelessWidget {
                   return buildMessageItem(
                       context, item); // Your function to build message items
                 } else if (item['type'] == 'esp32') {
-                  var actualFilled = 70 - double.parse(item['dist']);
-                  if (actualFilled >= 14) {
+                  var actualFilled = 35 - double.parse(item['dist']);
+                  if (actualFilled >= 20) {
                     return buildEsp32Item(
                         context, item); // Your function to build esp32 items
                   } else {

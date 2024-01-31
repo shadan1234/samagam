@@ -173,9 +173,9 @@ Widget buildMessageItem(BuildContext context, Map<String, dynamic> message) {
 }
 
 Widget buildEsp32Item(BuildContext context, Map<String, dynamic> esp32Data) {
-  var loc = esp32Data['location'];
+  var actualLoc = esp32Data['location'];
 
-  var actualLoc = Constants.mapIntToLocation[int.parse(loc[0])];
+  
 
   final FirebaseServices firebaseServices = FirebaseServices();
   // var x=esp32Data['completedW'];

@@ -1,30 +1,30 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
 class TextField_for_Auth extends StatelessWidget {
-
   final String labelText;
   final String hintText;
   final IconData iconss;
   final Function(String) onValueChanged;
   final String? Function(String?)? validationFunction;
-  TextField_for_Auth({ required this.labelText, required this.hintText, required this.iconss, required this.onValueChanged, required this.validationFunction});
+
+  TextField_for_Auth(
+      {required this.labelText,
+      required this.hintText,
+      required this.iconss,
+      required this.onValueChanged,
+      required this.validationFunction});
 
   void notifyValueChanged(String changedValue) {
     onValueChanged(changedValue);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-
+      obscureText: hintText == 'Password' ? true : false,
       validator: validationFunction,
-
-
-      onChanged: (val){
+      onChanged: (val) {
         notifyValueChanged(val);
       },
       cursorColor: Colors.black,
