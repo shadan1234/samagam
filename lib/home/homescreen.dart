@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ))
         ],
         title: Text(
-          'Nitr Clean',
+          'Smart camp Connect',
           style: TextStyle(
             color: Colors.white,
             fontSize: 22.0,
