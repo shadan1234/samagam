@@ -28,23 +28,37 @@ Check the App out->
 https://youtu.be/6fQSv2MjBd4
 
 ScreenShots->
-<!-- Row 1 -->
-<p align="center">
-  <img src="image_readme/empty-plumber-screen.jpg" alt="empty-plumber-screen" height="200">
-  <img src="images/student-plumber.jpg" alt="student-plumber" height="200">
-  <img src="images/student-electrical.jpg" alt="student-electrical" height="200">
-</p>
-
-<!-- Row 2 -->
-<p align="center">
-  <img src="images/login.jpg" alt="login" height="200">
-  <img src="images/register_only_page.jpg" alt="register_only_page" height="200">
-  <img src="images/register.jpg" alt="register" height="200">
-</p>
-
-<p align="center">
-  <img src="images/student-cleaner.jpg" alt="student-cleaner" height="200">
-</p>
+Here are just a few screenshots which i took. 
+<!-- Table for images -->
+<table>
+  <tr>
+    <td align="center">
+      <img src="image_readme/empty-plumber-screen.jpg" alt="empty-plumber-screen" height="400">
+    </td>
+    <td align="center">
+      <img src="image_readme/student-plumber.jpg" alt="student-plumber" height="400">
+    </td>
+    <td align="center">
+      <img src="image_readme/student-electrician.jpg" alt="student-electrical" height="400">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="image_readme/login.jpg" alt="login" height="400">
+    </td>
+    <td align="center">
+      <img src="image_readme/register_only_page].jpg" alt="register_only_page" height="400">
+    </td>
+    <td align="center">
+      <img src="image_readme/register.jpg" alt="register" height="400">
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan="3">
+      <img src="image_readme/student-cleaner.jpg" alt="student-cleaner" height="400">
+    </td>
+  </tr>
+</table>
 
 
 
@@ -53,6 +67,11 @@ We have attached an apk file named as app-release.apk [ You can directly install
 OR
 Just clone the repository and start running the app your emulator or physical device.
 
+## Tech Stack
+- Frontend-> Flutter (Provider state management)
+- Backend -> Firebase
+- Auth , Cloud Storage and Firestore services are used in this app
+  
 ## Idea 
 I have built this app because I saw this issue of having a long procedure just to get a small work done in my hostel.
 
