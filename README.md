@@ -7,8 +7,9 @@ Smart Campus Connect is a service-based application designed to cater to student
 
 Efficient Waste Management: Our app integrates ESP32 technology to monitor dustbin capacity. When the dustbin exceeds 75% capacity, cleaners receive instant notifications, ensuring timely waste disposal.
 
-ScreenShots->
+## ScreenShots
 Here are just a few screenshots which i took. 
+
 <!-- Table for images -->
 <table>
   <tr>
